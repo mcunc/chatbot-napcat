@@ -1,0 +1,5 @@
+napcat/
+.idea
+.venv
+data/
+logs/
