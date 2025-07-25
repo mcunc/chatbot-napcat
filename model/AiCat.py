@@ -61,7 +61,7 @@ class AiCat:
             logging.info("请求平台：dify")
 
         elif ai_service == "xyit":
-            url = f"http://{xyit_ip}/{xyit_model}/"  # 替换为实际的 API 地址
+            url = f"https://{xyit_ip}/{xyit_model}/"  # 替换为实际的 API 地址
 
             # 请求头
             headers = {
