@@ -1,6 +1,8 @@
 import logging
 import toml
 
+
+logger = setup_logger()
 class request:
     def __init__(self,msg):
         self.time = msg.time
@@ -28,7 +30,7 @@ class request:
                 friend_auto = config.get("friend_auto")
             return friend_auto
         except Exception as e:
-            logging.error(f"读取配置文件错误：{e}")
+            logger.error(f"读取配置文件错误：{e}")
             return False
 
     def get_allow_group(self):
@@ -38,5 +40,5 @@ class request:
                 allow_group = config.get("allowed_groups")
             return allow_group
         except Exception as e:
-            logging.error(f"读取配置文件错误：{e}")
+            logger.error(f"读取配置文件错误：{e}")
             return []

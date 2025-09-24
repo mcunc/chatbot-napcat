@@ -1,6 +1,8 @@
 import toml
 import logging
+from model.logger import setup_logger
 
+logger = setup_logger()
 class notice:
     def __init__(self,msg):
         print(msg)
@@ -41,7 +43,7 @@ class notice:
                 else:
                     return None
         except Exception as e:
-            logging.error(f"读取配置文件错误：{e}")
+            logger.error(f"读取配置文件错误：{e}")
             return None
 
     def group_decrease(self):
@@ -59,5 +61,5 @@ class notice:
                 else:
                     return None
         except Exception as e:
-            logging.error(f"读取配置文件错误：{e}")
+            logger.error(f"读取配置文件错误：{e}")
             return None

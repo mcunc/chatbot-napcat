@@ -15,16 +15,48 @@ ai_service = "xyit" # ai平台 支持 “dify” “xyit"
 friend_auto = false # 好友自动同意
 group_auto = true
 group_welcome = false # 入群欢迎
-group_welcome_message = "!at 欢迎加入本群，使用@bot /help获取此bot帮助" # 入群消息 !at 为@加群用户
 group_leave = false # 退群提醒
+
+#  语言配置
+group_welcome_message = "!at 欢迎加入本群，使用@bot /help获取此bot帮助" # 入群消息 !at 为@加群用户
 group_leave_message = "用户{userid}退群了" # 退群消息 ，{userid}为退群用户id
+error_message = "服务器繁忙，请稍后再逝"
+permission_denied_message = "此bot未在该群启用"
+status_message = "---猫娘 QBOT---\n Q bot 运行正常 \n 版本: 2.0 pre \n © 无尽创意MCUNC"
+help_message = "直接输入聊天内容即可 \n /help -- 获取帮助 \n /clear [群号 / private:Q号]  (all 为全部，不填为本 群/用户)  \n /status -- 查看bot状态"
+command_isnone_message = "你似乎没有提供想和我聊的内容喵~  \n 直接输入聊天内容即可"
+command_notfound_message = "指令不存在，输入/help查看帮助"
+chatmessage_isnone_message = "你似乎没有提供想和我聊的内容喵~  \n 格式：/cat <提问内容>"
+clean_all_success_message = "✅ 已清空所有群组数据"
+clean_one_success_message = "✅ 已成功删除 group_id = {group_id} 的数据"
+clean_one_notfound_message = "⚠️ 没有找到 group_id = {group_id} 的数据"
+clean_nopermissoin_message = "你不是管理员哦喵~"
+clean_fail_message = "❌ 数据库操作失败"
+
+
+# 用户标识配置
+    # 此项用户在消息开头添加用户qid，以便于ai识别用户（需在ai模型中添加提示词）
+    # 如使用xyit平台，请勿修改
+enable_qid = true # 是否启用
+qid_prefix = "<qid>" # 前缀
+qid_suffix = "</qid>" # 后缀
 
 # dify配置 ai_service选择dify时需配置
-dify_ip= "" # ip:端口
+dify_ip= "" # https://ip:port
 dify_token = "" # token
 
-# xyit配置 ai_service选择xyit时需配置
-xyit_ip = "ai.openapi.xyit.net" # ip 此项一般不需用修改
+# mcunc配置 ai_service选择mcunc时需配置
+xyit_ip = "https://ai.openapi.mcunc.cn" # ip 此项一般不需用修改
 xyit_appID = "" # appID
 xyit_appKEY = "" # appKEY
 xyit_model = "maoniang" # 模型名称
+
+# xyit配置 ai_service选择xyit时需配置
+xyit_ip = "https://ai.openapi.xyit.net" # ip 此项一般不需用修改
+xyit_appID = "" # appID
+xyit_appKEY = "" # appKEY
+xyit_model = "maoniang" # 模型名称
+
+# 阿里云百炼配置  ai_service选择aliyun时需配置
+aliyun_app_id =  ""
+aliyun_api_key =  ""

@@ -1,8 +1,10 @@
 import logging
-from model.AiCat import AiCat
+from model import ai_model
 from model.Clear import Clear
 import toml
+from model.logger import setup_logger
 
+logger = setup_logger()
 class group:
    def __init__(self, msg):
         self.user_id = msg.user_id
@@ -14,6 +16,18 @@ class group:
         self.message = msg.message
         self.self_id = msg.self_id
         self.time = msg.time
+        try:
+           with open("config.toml", "r", encoding="utf-8") as f:
+               config = toml.load(f)
+               self.permission_denied_message = config.get("permission_denied_message")
+               self.error_message = config.get("error_message")
+               self.help_message = config.get("help_message")
+               self.command_isnone_message = config.get("command_none_message")
+               self.command_notfound_message = config.get("command_notfound_message")
+               self.status_message = config.get("status_message")
+               self.chatmessage_isnone_message = config.get("chatmessage_isnone_message")
+        except Exception as e:
+           logger.error(f"读取配置文件出现错误{e}")
 
    def main(self):
        is_at = self.is_at()
@@ -22,11 +36,11 @@ class group:
        else:
            permission = self.check_permission()
            if permission is None:
-               return "服务器繁忙，请稍后再逝"
+               return self.error_message
            elif permission:
                return self.menu(is_at)
            else:
-               return "此bot未在该群启用"
+               return self.permission_denied_message
 
    def is_at(self):
        for seg in self.message:
@@ -43,7 +57,7 @@ class group:
                config = toml.load(f)
                allowed_groups = config.get("allowed_groups", [])
        except Exception as e:
-           logging.error(str(e))
+           logger.error(str(e))
            return None
 
            # 检查当前群是否在允许列表中
@@ -54,22 +68,22 @@ class group:
        else:
            return False
 
+
    def menu(self,command):
         if command.startswith("/help"):
-            return " 直接输入聊天内容即可 \n /help -- 获取帮助 \n /clear [群号 / private:Q号]  (all 为全部，不填为本 群/用户)  \n /status -- 查看bot状态 "
-        elif command.startswith("/cat"):#  留此指令接口为了方便通过审核
+            return self.help_message
+        elif command.startswith("/cat"):#  留此指令接口为了方便qq官bot通过审核
             # 排除 " /cat "" /cat"未传参情况
             parts = command.split("/cat ", 1)
             if len(parts) > 1:
                 chat_content = parts[1].strip()
                 if chat_content:
-                    cat = AiCat(chat_content, self.user_id,self.group_id)
-                    answer = AiCat.main(cat)
+                    answer = ai_model.main(chat_content, self.user_id,self.group_id)
                     return answer
                 else:
-                    return "你似乎没有提供想和我聊的内容喵~  \n 格式：/cat <提问内容>"
+                    return self.chatmessage_isnone_message
             else:
-                return "你似乎没有提供想和我聊的内容喵~  \n 格式：/cat <提问内容>"
+                return self.chatmessage_isnone_message
         elif command.startswith("/clear"):
             parts = command.split("/clear ", 1)
             if len(parts) > 1:
@@ -84,14 +98,13 @@ class group:
                 clear = Clear(self.user_id, self.group_id)
                 return clear.main()
         elif command.startswith("/status"):
-            return "---猫娘 QBOT---\n Q bot 运行正常 \n 版本: 2.0 pre \n © 融玩文化 | 无尽创意MCUNC"
+            return self.status_message
         elif command.startswith("/"):
-            return "指令不存在，输入/help查看帮助"
+            return self.command_notfound_message
         elif command == "":
-            return "你似乎没有提供想和我聊的内容喵~  \n 直接输入聊天内容即可"
+            return self.command_isnone_message
         elif command is None:
-            return "你似乎没有提供想和我聊的内容喵~  \n 直接输入聊天内容即可"
+            return self.command_isnone_message
         else:
-            cat = AiCat(command, self.user_id,self.group_id)
-            answer = AiCat.main(cat)
+            answer = ai_model.main(command, self.user_id, self.group_id)
             return answer
