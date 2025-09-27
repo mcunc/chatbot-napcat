@@ -1,4 +1,4 @@
-import logging
+from model.logger import setup_logger
 import toml
 
 

@@ -11,7 +11,7 @@ remote_mode = false # 是否远程模式, 即 NapCat 服务不在本机运行 ps
 # 功能配置
 allowed_groups = "all" # 授权群聊，all为全部，eg：[123456789, 987654321]
 allowed_users = "all" # 授权用户，all为全部，eg：[123456789, 987654321]
-ai_service = "xyit" # ai平台 支持 “dify” “xyit"
+ai_service = "xyit" # ai平台 支持 "dify" "mcunc" "xyit" "aliyun"
 friend_auto = false # 好友自动同意
 group_auto = true
 group_welcome = false # 入群欢迎
@@ -46,10 +46,10 @@ dify_ip= "" # https://ip:port
 dify_token = "" # token
 
 # mcunc配置 ai_service选择mcunc时需配置
-xyit_ip = "https://ai.openapi.mcunc.cn" # ip 此项一般不需用修改
-xyit_appID = "" # appID
-xyit_appKEY = "" # appKEY
-xyit_model = "maoniang" # 模型名称
+mcunc_ip = "https://ai.openapi.mcunc.cn" # ip 此项一般不需用修改
+mcunc_appID = "" # appID
+mcunc_appKEY = "" # appKEY
+mcunc_model = "maoniang" # 模型名称名称
 
 # xyit配置 ai_service选择xyit时需配置
 xyit_ip = "https://ai.openapi.xyit.net" # ip 此项一般不需用修改

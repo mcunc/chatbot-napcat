@@ -26,6 +26,8 @@ def main(message, group_openid):
     else:
         logger.info(f"找到 UUID: {uuid}")
 
+    logger.info("请求平台：aliyun")
+
     # 发送请求
     response = Application.call(
         # 若没有配置环境变量，可用百炼API Key将下行替换为：api_key="sk-xxx"。但不建议在生产环境中直接将API Key硬编码到代码中，以减少API Key泄露风险。

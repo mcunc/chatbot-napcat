@@ -22,9 +22,9 @@ def main(message, group_openid):
     uuid = get_uuid(group_openid)
 
     if uuid == "":
-        logging.info("未找到 UUID")
+        logger.info("未找到 UUID")
     else:
-        logging.info(f"找到 UUID: {uuid}")
+        logger.info(f"找到 UUID: {uuid}")
 
     url = f"{dify_ip}/v1/chat-messages"  # 替换为实际的 API 地址
 
@@ -45,7 +45,7 @@ def main(message, group_openid):
         "auto_generate_name": True  # （选填）自动生成标题，默认为 True
     }
 
-    logging.info("请求平台：dify")
+    logger.info("请求平台：dify")
 
 
     # 发送 POST 请求
@@ -54,7 +54,7 @@ def main(message, group_openid):
 
         # 检查响应状态码
         if response.status_code == 200:
-            logging.info("请求成功！返回结果：")
+            logger.info("请求成功！返回结果：")
             response_data = response.json()
             print(response_data)  # test
             # 存储uuid
@@ -66,12 +66,12 @@ def main(message, group_openid):
             answer = response_data.get("answer", error_message)
             return answer
         else:
-            logging.info(f"请求失败！状态码: {response.status_code}")
-            logging.info(f"错误信息: {response.text}")  # 打印错误信息
+            logger.info(f"请求失败！状态码: {response.status_code}")
+            logger.info(f"错误信息: {response.text}")  # 打印错误信息
             return error_message
 
     except Exception as e:
-        logging.info(f"请求过程中出现异常: {e}")
+        logger.info(f"请求过程中出现异常: {e}")
         return error_message
 
 

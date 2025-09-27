@@ -15,14 +15,14 @@ with open("./config.toml", "r", encoding="utf-8") as f:
     bt_uin = config.get("bot_qq")
     root = config.get("root_qq")
     ws_uri = config.get("ws_uri")
-    web_uri = config.get("web_uri")
+    webui_uri = config.get("webui_uri")
     webui_token = config.get("webui_token")
     ws_token = config.get("ws_token")
     ws_listen_ip = config.get("ws_listen_ip")
     remote_mode = config.get("remote_mode")
 
 bot = BotClient()
-api = bot.run_blocking(bt_uin=bt_uin, root=root, ws_uri=ws_uri, web_uri=web_uri, webui_token=webui_token, ws_token=ws_token, ws_listen_ip=ws_listen_ip, remote_mode=remote_mode)
+api = bot.run_blocking(bt_uin=bt_uin, root=root, ws_uri=ws_uri, webui_uri=webui_uri, webui_token=webui_token, ws_token=ws_token, ws_listen_ip=ws_listen_ip, remote_mode=remote_mode)
 
 @bot.group_event()
 async def on_group_message(msg):

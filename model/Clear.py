@@ -20,9 +20,9 @@ class Clear:
             clean_nopermissoin_message = config.get("clean_nopermissoin_message")
 
         if "{group_id}" in clean_one_success_message:
-            clean_one_success_message.replace("{group_id}", self.group_id)
+            clean_one_success_message = clean_one_success_message.replace("{group_id}", self.group_id)
         if "{group_id}" in clean_one_notfound_message:
-            clean_one_notfound_message.replace("{group_id}", self.group_id)
+            clean_one_notfound_message = clean_one_notfound_message.replace("{group_id}", self.group_id)
 
         if self.is_root():
             if self.group_id == "all":

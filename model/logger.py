@@ -17,8 +17,9 @@ def setup_logger(log_file=None, log_level=logging.INFO, max_bytes=10485760, back
         logging.Logger: 配置好的日志记录器
     """
     # 创建logger
-    logger = logging.getLogger('mcsmapi')
+    logger = logging.getLogger('chatbot-napcat')
     logger.setLevel(log_level)
+    logger.propagate = False
 
     # 避免重复添加handler
     if logger.handlers:

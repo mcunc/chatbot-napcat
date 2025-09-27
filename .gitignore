@@ -3,3 +3,4 @@ napcat/
 .venv
 data/
 logs/
+uuid.db
