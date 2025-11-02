@@ -1,4 +1,4 @@
-import logging
+from ncatbot.core.event.message_segment import At, Text
 from model import ai_model
 from model.Clear import Clear
 import toml
@@ -7,6 +7,7 @@ from model.logger import setup_logger
 logger = setup_logger()
 class group:
    def __init__(self, msg):
+        self.self_id = msg.self_id
         self.user_id = msg.user_id
         self.group_id = msg.group_id
         self.message_id = msg.message_id
@@ -14,8 +15,6 @@ class group:
         self.raw_message = msg.raw_message
         self.sender = msg.sender
         self.message = msg.message
-        self.self_id = msg.self_id
-        self.time = msg.time
         try:
            with open("config.toml", "r", encoding="utf-8") as f:
                config = toml.load(f)
@@ -44,8 +43,8 @@ class group:
 
    def is_at(self):
        for seg in self.message:
-           if seg['type'] == 'at' and seg['data'].get('qq') == str(self.self_id):
-               texts = [s['data']['text'].strip() for s in self.message if s['type'] == 'text']
+           if isinstance(seg, At) and seg.qq == str(self.self_id):
+               texts = [s.text.strip() for s in self.message if isinstance(s, Text)]
                full_text = ' '.join(texts).strip()
                return full_text
 

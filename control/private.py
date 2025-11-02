@@ -1,3 +1,4 @@
+from ncatbot.core.event.message_segment import Text
 from model.logger import setup_logger
 from model.Clear import Clear
 from model import ai_model
@@ -30,7 +31,7 @@ class private:
            logger.error(f"读取配置文件出现错误{e}")
 
    def main(self):
-       texts = [seg['data']['text'].strip() for seg in self.message if seg['type'] == 'text']
+       texts = [seg.text.strip() for seg in self.message if isinstance(seg, Text)]
        full_text = ' '.join(texts).strip()
        permission = self.check_permission()
        if permission is None:

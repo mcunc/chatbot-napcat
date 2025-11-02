@@ -5,18 +5,11 @@ from model.logger import setup_logger
 logger = setup_logger()
 class notice:
     def __init__(self,msg):
-        print(msg)
-        if msg["notice_type"] == "group_increase" or msg["notice_type"] == "group_decrease":
-            self.time = msg["time"]
-            self.self_id = msg["self_id"]
-            self.post_type = msg["post_type"]
-            self.notice_type = msg["notice_type"]
-            self.sub_type = msg["sub_type"]
-            self.group_id = msg["group_id"]
-            self.operator_id = msg["operator_id"]
-            self.user_id = msg["user_id"]
-        else:
-            pass
+        self.time = msg.time
+        self.notice_type = msg.notice_type
+        self.group_id = msg.group_id
+        self.operator_id = msg.operator_id
+        self.user_id = msg.user_id
 
     def main(self):
         if self.notice_type == "group_increase":
@@ -27,7 +20,6 @@ class notice:
             return None
 
     def group_increase(self):
-        print(1)
         try:
             with open("./config.toml", "r", encoding="utf-8") as f:
                 config = toml.load(f)
@@ -52,7 +44,6 @@ class notice:
                 config = toml.load(f)
                 group_leave = config.get("group_leave")
                 group_leave_message = config.get("group_leave_message")
-                print(group_leave_message)
                 if group_leave:
                     if "{userid}" in group_leave_message:
                         return group_leave_message.replace("{userid}", str(self.user_id))

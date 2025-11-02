@@ -5,12 +5,9 @@ import toml
 logger = setup_logger()
 class request:
     def __init__(self,msg):
-        self.time = msg.time
         self.self_id = msg.self_id
         self.request_type = msg.request_type
-        self.sub_type = msg.sub_type
-        self.group_id = msg.group_id
-        self.user_id = msg.user_id
+        self.post_type = msg.post_type
         self.comment = msg.comment
         self.flag = msg.flag
 
@@ -32,13 +29,3 @@ class request:
         except Exception as e:
             logger.error(f"读取配置文件错误：{e}")
             return False
-
-    def get_allow_group(self):
-        try:
-            with open("./config.toml", "r", encoding="utf-8") as f:
-                config = toml.load(f)
-                allow_group = config.get("allowed_groups")
-            return allow_group
-        except Exception as e:
-            logger.error(f"读取配置文件错误：{e}")
-            return []

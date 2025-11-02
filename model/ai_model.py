@@ -24,9 +24,6 @@ def main(message,qid,group_openid):
         elif ai_service == "mcunc":
             from model.ai_models import mcunc
             return mcunc.main(message, group_openid)
-        elif ai_service == "xyit":
-            from model.ai_models import xyit
-            return xyit.main(message, group_openid)
         elif ai_service == "aliyun":
             from model.ai_models import aliyun
             return aliyun.main(message, group_openid)
